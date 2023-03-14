@@ -1,14 +1,25 @@
-import cors from "cors";
-import path from "path";
-import express from "express";
-import bodyParser from "body-parser";
-import { success, error } from "consola";
-import morgan from "morgan";
-import expressWs from "express-ws";
-import { PORT } from "./config";
+const mongoose = require("mongoose");
+const cors = require("cors");
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
+const { success, error } = require("consola");
+const morgan = require("morgan");
+const { PORT } = require("./config");
+
+// // initialize db connexion
+
+// (async () => {
+//   try {
+//     await mongoose.connect("mongodb://127.0.0.1:27017/test");
+//     console.log("connexion réussie avec la base de donnée");
+//   } catch (error) {
+//     console.error(error.message);
+//   }
+// })();
 
 // Import Routes
-import imagesRoutes from "./routes/images";
+const imagesRoutes = require("./routes/images");
 
 // Initialize the express application
 const app = express();
@@ -19,9 +30,6 @@ const startApp = () => {
     success({ badge: true, message: `Server started on port ${PORT}` })
   );
 };
-
-// initialize express-ws
-expressWs(app);
 
 // Inject the middlewares to our app Object
 app.use(cors());
@@ -35,20 +43,3 @@ app.use("/api/images", imagesRoutes);
 app.use(express.static(path.join(__dirname, "./public")));
 
 startApp();
-
-// the server pick up the '/ws' WebSocket route
-app.ws("/ws", async function (ws, req) {
-  // we wait for a message and respond to it
-  ws.on("message", async function (msg) {
-    // If a message occurs, console log it
-    console.log(msg);
-    // Start listening for messages
-    //sending response back to client
-    ws.send(
-      JSON.stringify({
-        append: true,
-        returnText: "I am using WebSockets!",
-      })
-    );
-  });
-});
