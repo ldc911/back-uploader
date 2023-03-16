@@ -1,5 +1,12 @@
-const dotenv = require("dotenv");
-const { parsed } = dotenv.config();
-const PORT = process.env.PORT || parsed.PORT;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.baseURL = exports.PORT = void 0;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const PORT = process.env.PORT;
+exports.PORT = PORT;
 const baseURL = `http://localhost:${PORT}`;
-module.exports = { PORT, baseURL };
+exports.baseURL = baseURL;

@@ -1,2 +1,3 @@
-export const PORT: string;
-export const baseURL: string;
+declare const PORT: String;
+declare const baseURL: String;
+export { PORT, baseURL };
