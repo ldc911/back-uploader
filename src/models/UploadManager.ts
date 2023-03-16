@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const uploadSchema = new mongoose.Schema({
   path: String,
@@ -7,4 +7,4 @@ const uploadSchema = new mongoose.Schema({
 
 const Upload = mongoose.model("Upload", uploadSchema);
 
-module.exports = Upload;
+export default Upload;
