@@ -2,12 +2,13 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, `${__dirname}/../public/uploads`);
+    cb(null, `public/uploads`);
   },
   filename: (req, file, cb) => {
-    let lastIndex = file.originalname.lastIndexOf(".");
+    console.log(file);
+    let lastIndex = file.mimetype.lastIndexOf("/");
     // get the original extension of the file
-    let extension = file.originalname.substring(lastIndex);
+    let extension = file.mimetype.substring(lastIndex).replace("/", ".");
     // Create the file on the server
     cb(null, `img-${Date.now()}${extension}`);
   },
