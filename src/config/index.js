@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+const dotenv = require("dotenv");
 
 const { parsed } = dotenv.config();
-export const PORT = process.env.PORT || parsed.PORT;
-
-export const baseURL = `http://localhost:${PORT}`;
+const PORT = process.env.PORT || parsed.PORT;
+const baseURL = `http://localhost:${PORT}`;
+module.exports = { PORT, baseURL };

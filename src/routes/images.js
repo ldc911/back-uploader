@@ -5,7 +5,8 @@ const uploadMiddleware = require("../middlewares/uploaderMiddleware");
 const {
   handleMessage,
   addUploads,
-} = require("../controllers/ImageControllers");
+  getUploads,
+} = require("../controllers/UploadControllers");
 
 const router = Router();
 
@@ -13,5 +14,6 @@ const router = Router();
 
 router.post("/multi-upload", uploadMiddleware.array("files"), handleMessage);
 router.post("/uploads", addUploads);
+router.get("/uploads", getUploads);
 
 module.exports = router;
