@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "node -r esm .",
-    "dev": "nodemon -r esm"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "Narendra Maurya",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "amqplib": "^0.10.3",
@@ -19,9 +20,9 @@
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "express-ws": "^5.0.2",
     "fs": "^0.0.1-security",
     "lodash": "^4.17.20",
+    "mongoose": "^7.0.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "nodemon": "^2.0.21"
