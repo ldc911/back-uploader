@@ -1,16 +1,34 @@
-const _ = require("lodash");
-const { publisher } = require("../utils/publisher");
-const { baseURL } = require("../config");
-const Upload = require("../models/UploadManager");
+import _ from "lodash";
+import { publisher } from "../utils/publisher";
+import { baseURL } from "@config/index";
+import Upload from "../models/UploadManager";
+
+interface Message {
+  fileId?: String;
+  wsRoom?: String;
+  imagePath?: String;
+  path?: String;
+}
+
+interface ResultToSave {
+  title: String;
+  confidence: Number;
+  count: Number;
+}
+
+interface UploadFile {
+  path: String;
+  label: Array<ResultToSave>;
+}
 
 const handleMessage = async (req, res) => {
   const { files } = req;
-  const resp = [];
+  const resp: Array<Message> = [];
   _.forEach(files, (file) => {
-    const message = {};
-    let path = `${__dirname}/${file.path}`;
-    path = path.replace("/src/controllers/", "/");
-    let imagePath = file.path.replace("public", baseURL);
+    const message: Message = {};
+    let path: string = `${__dirname}/${file.path}`;
+    path = path.replace("/build/src/controllers/", "/");
+    let imagePath: string = file.path.replace("public", baseURL);
     message.fileId = file.originalname;
     message.wsRoom = req.body.wsRoom;
     message.imagePath = imagePath;
@@ -23,7 +41,7 @@ const handleMessage = async (req, res) => {
 
 const addUploads = async (req, res) => {
   const { uploads } = req.body;
-  const data = uploads.map((upload) => ({
+  const data: Array<UploadFile> = uploads.map((upload) => ({
     path: upload.path,
     label: Object.keys(upload.result).map((key) => ({
       title: key,
@@ -40,4 +58,4 @@ const getUploads = async (req, res) => {
   res.status(200).json(response);
 };
 
-module.exports = { handleMessage, addUploads, getUploads };
+export { handleMessage, addUploads, getUploads };
